@@ -1,22 +1,16 @@
-name: Deploy to EC2
+name: Deploy to EC2 (Simple)
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd ~/devops-webapp-1
-            git pull origin main
-            docker-compose down
-            docker-compose up -d
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy message
+        run: echo "Code pushed successfully 🚀 (manual deploy on EC2)"
